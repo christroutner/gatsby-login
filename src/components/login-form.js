@@ -10,7 +10,24 @@ const StyledButton = styled.a`
   margin-bottom: 25px;
 `
 
+const OutMsg = styled.p`
+  color: red;
+  font-weight: bold;
+  size: 18px;
+`
+
+let _this
+
 class LoginForm extends React.Component {
+  constructor(props) {
+    super(props)
+
+    _this = this
+
+    this.state = {
+      message: ""
+    }
+  }
   render() {
     return (
       <form >
@@ -21,67 +38,39 @@ class LoginForm extends React.Component {
         <input type="text" name="password" />
         <br></br>
         <StyledButton href="#" className="button special" id="createBtn"
-        onClick={this.invokeBadger}
+        onClick={this.createClick}
         data-to="bitcoincash:qzl6k0wvdd5ky99hewghqdgfj2jhcpqnfq8xtct0al">
           Create
         </StyledButton>
         <StyledButton href="#" className="button special" id="loginBtn"
-        onClick={this.invokeBadger}
+        onClick={this.loginClick}
         data-to="bitcoincash:qzl6k0wvdd5ky99hewghqdgfj2jhcpqnfq8xtct0al">
           Login
         </StyledButton>
+        <br />
+        <OutMsg>{this.state.message}</OutMsg>
+
       </form>
 
     )
   }
 
-  // Invoke the Badger Wallet when the button is clicked.
-  invokeBadger (event) {
+  createClick(event) {
     event.preventDefault()
 
-
-
-    //debugger
-
-/*
-    let bch = Math.floor(100000000/window.usdPerBCH)
-    console.log(`Sending ${bch} BCH`)
-
-    var badgerButtons = document.body.getElementsByClassName("badger-button")
-    for (var i = 0; i < badgerButtons.length; i++) {
-      var badgerButton = badgerButtons[i]
-      //badgerButton.addEventListener('click', function(event) {
-        if (typeof web4bch !== 'undefined') {
-          // Instantiate web4bch
-          web4bch = new Web4Bch(web4bch.currentProvider)
-
-          if(bch === null || isNaN(bch)) bch = 10000 // Prevent value=null bug
-
-          var txParams = {
-            to: badgerButton.getAttribute("data-to"),
-            from: web4bch.bch.defaultAccount,
-            value: bch
-          }
-
-          web4bch.bch.sendTransaction(txParams, (err, res) => {
-            if (err) return
-
-            console.log(`Transaction sent!`)
-
-            // Run the callback if one is defined on the button.
-            var successCallback = badgerButton.getAttribute("data-success-callback")
-            if (successCallback) {
-              window[successCallback](window.usdPerBC)
-            }
-          })
-        } else {
-          window.open('https://badgerwallet.cash')
-        }
-      //})
-
-    }
-    */
+    _this.setState(prevState => ({
+      message: "You clicked the Create button."
+    }))
   }
+
+  loginClick(event) {
+    event.preventDefault()
+
+    _this.setState(prevState => ({
+      message: "You clicked the Login button."
+    }))
+  }
+
 }
 
 export default LoginForm
