@@ -6,7 +6,7 @@ export default () => {
   // Show logged-in status of user.
   const content = { message: "", login: true };
   if (isLoggedIn()) {
-    content.message = `Hello, ${getUser().name}`;
+    content.message = `Hello, ${getUser().username}`;
   } else {
     content.message = "You are not logged in";
   }

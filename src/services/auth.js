@@ -37,8 +37,6 @@ export const handleLogin = async ({ username, password }) => {
 
     return setUser({
       username: users.user.username,
-      name: users.user.username,
-      email: `not@implemented.yet`,
       jwt: users.token
     })
   } catch (err) {
