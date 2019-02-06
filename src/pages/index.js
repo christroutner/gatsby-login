@@ -1,6 +1,8 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
+import { navigate } from "gatsby"
+import { handleLogin, isLoggedIn } from "../services/auth"
 
 import LoginForm from '../components/login-form'
 import Layout from '../components/layout'
@@ -43,6 +45,8 @@ class Homepage extends React.Component {
   }
 
   render() {
+
+
     const siteTitle = 'Auth Boilerplate'
 
     return (
@@ -68,7 +72,12 @@ class Homepage extends React.Component {
   }
 
   // React Lifecycle - component has mounted.
-  async componentDidMount() {}
+  async componentDidMount() {
+    // If user is already logged in, forward them to the private area.
+    if (isLoggedIn()) {
+      navigate(`/app/profile`)
+    }
+  }
 }
 
 export default Homepage

@@ -4,6 +4,8 @@
 
 import React from 'react'
 import styled from 'styled-components'
+import { handleLogin, isLoggedIn } from "../services/auth";
+import { Link, navigate } from "gatsby";
 
 const StyledButton = styled.a`
   margin: 10px;
@@ -19,23 +21,27 @@ const OutMsg = styled.p`
 let _this
 
 class LoginForm extends React.Component {
+
   constructor(props) {
     super(props)
 
     _this = this
 
     this.state = {
-      message: ""
+      message: "",
+      username: "",
+      password: ""
     }
   }
+
   render() {
     return (
       <form >
         Login:<br />
-        <input type="text" name="login" />
+        <input type="text" name="username" onChange={this.handleUpdate} />
         <br />
         Password:<br />
-        <input type="text" name="password" />
+        <input type="password" name="password" onChange={this.handleUpdate} />
         <br></br>
         <StyledButton href="#" className="button special" id="createBtn"
         onClick={this.createClick}
@@ -55,6 +61,12 @@ class LoginForm extends React.Component {
     )
   }
 
+  handleUpdate(event) {
+    _this.setState({
+      [event.target.name]: event.target.value,
+    })
+  }
+
   createClick(event) {
     event.preventDefault()
 
@@ -63,12 +75,18 @@ class LoginForm extends React.Component {
     }))
   }
 
-  loginClick(event) {
+  async loginClick(event) {
     event.preventDefault()
 
     _this.setState(prevState => ({
       message: "You clicked the Login button."
     }))
+
+    //console.log(`state: ${JSON.stringify(_this.state,null,2)}`)
+
+    await handleLogin(_this.state)
+
+    navigate(`/app/profile`)
   }
 
 }
