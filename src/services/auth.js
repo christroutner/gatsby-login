@@ -12,7 +12,7 @@ export const getUser = () =>
     : {};
 
 // Save user data to localstorage
-const setUser = user =>
+export const setUser = user =>
   window.localStorage.setItem("gatsbyUser", JSON.stringify(user));
 
 export const handleLogin = async ({ username, password }) => {
