@@ -1,12 +1,14 @@
-import React from "react";
-import "../assets/scss/main.scss";
+import React from "react"
+import "../assets/scss/main.scss"
 
-import Header from "./Header";
-import Footer from "./Footer";
+//import Header from "./Header"
+//import Footer from "./Footer"
+import NavBar from "./nav-bar"
 
 class Template extends React.Component {
     constructor(props) {
-      super(props);
+      super(props)
+
       this.state = {
         loading: 'is-loading'
       }
@@ -29,9 +31,8 @@ class Template extends React.Component {
 
         return (
             <div className={`body ${this.state.loading}`}>
-                <Header />
+                <NavBar />
                 {children}
-                <Footer />
             </div>
         );
     }

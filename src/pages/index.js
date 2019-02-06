@@ -2,11 +2,8 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 
-//import Layout from '../components/layout'
-import PriceChart from '../components/price-chart'
-import Logs from '../components/logs'
-import WarningDiv from '../components/warning'
 import LoginForm from '../components/login-form'
+import Layout from '../components/layout'
 
 import pic01 from '../assets/images/pic01.jpg'
 import pic02 from '../assets/images/pic02.jpg'
@@ -49,33 +46,29 @@ class Homepage extends React.Component {
     const siteTitle = 'Auth Boilerplate'
 
     return (
-      <div className={`body`}>
-        <Helmet title={siteTitle} />
+      <Layout loading="loading">
+        <div className={`body`}>
+          <Helmet title={siteTitle} />
 
-        <section id="two" className="main style2">
-
-          <div className="grid-wrapper">
-            <div className="col-4"></div>
-            <div className="col-4">
-              <center>
-                <h2>Auth Boilerplate</h2>
-                <LoginForm />
-              </center>
+          <section id="two" className="main style2">
+            <div className="grid-wrapper">
+              <div className="col-4" />
+              <div className="col-4">
+                <center>
+                  <h2>Auth Boilerplate</h2>
+                  <LoginForm />
+                </center>
+              </div>
+              <div className="col-4" />
             </div>
-            <div className="col-4"></div>
-
-          </div>
-        </section>
-
-      </div>
+          </section>
+        </div>
+      </Layout>
     )
   }
 
   // React Lifecycle - component has mounted.
-  async componentDidMount() {
-  }
-
-
+  async componentDidMount() {}
 }
 
 export default Homepage
