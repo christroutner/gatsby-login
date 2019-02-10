@@ -7,7 +7,8 @@ import styled from 'styled-components'
 import { handleLogin, isLoggedIn, setUser } from "../services/auth";
 import { Link, navigate } from "gatsby";
 
-const SERVER = `http://localhost:5000`;
+//const SERVER = `http://localhost:5000`;
+const SERVER = ``;
 
 const StyledButton = styled.a`
   margin: 10px;

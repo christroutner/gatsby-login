@@ -1,6 +1,7 @@
 import "isomorphic-fetch";
 
-const SERVER = `http://localhost:5000`;
+//const SERVER = `http://localhost:5000`;
+const SERVER = ``;
 
 // Detect if the app is running in a browser.
 export const isBrowser = () => typeof window !== "undefined";
