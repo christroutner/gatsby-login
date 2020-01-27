@@ -8,7 +8,7 @@ import { handleLogin, isLoggedIn, setUser } from "../services/auth";
 import { Link, navigate } from "gatsby";
 
 //const SERVER = `http://localhost:5000`;
-const SERVER = ``;
+const SERVER = `http://localhost:5001`;
 
 const StyledButton = styled.a`
   margin: 10px;
@@ -32,7 +32,7 @@ class LoginForm extends React.Component {
 
     this.state = {
       message: "",
-      username: "",
+      email: "",
       password: ""
     }
   }
@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
     return (
       <form >
         Login:<br />
-        <input type="text" name="username" onChange={this.handleUpdate} />
+        <input type="text" name="email" onChange={this.handleUpdate} />
         <br />
         Password:<br />
         <input type="password" name="password" onChange={this.handleUpdate} />
@@ -69,10 +69,24 @@ class LoginForm extends React.Component {
       [event.target.name]: event.target.value,
     })
   }
-
+  validateEmail(email) 
+  {
+   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+    {
+      return (true)
+    }
+      return (false)
+  }
   async createClick(event) {
     event.preventDefault()
-
+    const isEmail = _this.validateEmail(_this.state.email)
+    console.log(`isEmail : ${isEmail}`)
+    if(!isEmail){
+      _this.setState(prevState => ({
+        message: 'Error:  Must be Email Format'
+      }))
+      return
+    }
     try {
       const options = {
         method: "POST",
@@ -81,7 +95,7 @@ class LoginForm extends React.Component {
         },
         body: JSON.stringify({
           user: {
-            username: _this.state.username,
+            email: _this.state.email,
             password: _this.state.password
           }
         })
@@ -95,12 +109,15 @@ class LoginForm extends React.Component {
       //console.log(`token: ${users.token}`)
 
       setUser({
+        userdata: users,
         username: users.user.username,
-        jwt: users.token
+        jwt: users.token,
+        email: users.user.email
       })
 
       navigate(`/app/profile`)
     } catch (err) {
+      console.log(err)
       // If something goes wrong with auth, return false.
       //return false;
       _this.setState(prevState => ({

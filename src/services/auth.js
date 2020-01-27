@@ -1,7 +1,7 @@
 import "isomorphic-fetch";
 
-//const SERVER = `http://localhost:5000`;
-const SERVER = ``;
+const SERVER = `http://localhost:5001`;
+//const SERVER = ``;
 
 // Detect if the app is running in a browser.
 export const isBrowser = () => typeof window !== "undefined";
@@ -16,7 +16,7 @@ export const getUser = () =>
 export const setUser = user =>
   window.localStorage.setItem("gatsbyUser", JSON.stringify(user));
 
-export const handleLogin = async ({ username, password }) => {
+export const handleLogin = async ({ email, password }) => {
   // Try to authenticate.
   try {
     const options = {
@@ -25,7 +25,7 @@ export const handleLogin = async ({ username, password }) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username: username,
+        email: email,
         password: password
       })
     };
@@ -37,8 +37,10 @@ export const handleLogin = async ({ username, password }) => {
     //console.log(`token: ${users.token}`)
 
     return setUser({
+      userdata: users,
       username: users.user.username,
-      jwt: users.token
+      jwt: users.token,
+      email: users.user.email
     })
   } catch (err) {
     // If something goes wrong with auth, return false.
@@ -50,7 +52,7 @@ export const handleLogin = async ({ username, password }) => {
 export const isLoggedIn = () => {
   const user = getUser();
 
-  return !!user.username;
+  return !!user.email;
 };
 
 export const logout = callback => {
