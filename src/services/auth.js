@@ -59,3 +59,20 @@ export const logout = callback => {
   setUser({});
   callback();
 };
+
+export const serverStatus = async () => {
+  // Calls the server to verify status
+  try {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    };
+    await fetch(`${SERVER}/`, options);
+    return true
+  } catch (err) {
+    // If something goes wrong with api, return false.
+    return false;
+  }
+};
